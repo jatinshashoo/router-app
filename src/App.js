@@ -7,7 +7,7 @@ import Dashboard from "./components/admin/dashboard";
 import ProductDetails from "./components/productDetails";
 import NotFound from "./components/notFound";
 import "./App.css";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 class App extends Component {
   render() {
@@ -21,10 +21,15 @@ class App extends Component {
               path="/products"
               render={props => <Products sortBy="newest" {...props} />}
             />
+            <Redirect
+              from="/messages/:year?/:month?"
+              to="/posts/:year?/:month?"
+            />
             <Route path="/posts/:year?/:month?" component={Posts} />
             <Route path="/admin" component={Dashboard} />
-            <Route path="/home" component={Home} />
-            <Route path="/" component={Home} />
+            <Route path="/not-found" exact component={NotFound} />
+            <Route path="/" exact component={Home} />
+            <Redirect to="/not-found" />
           </Switch>
         </div>
       </div>
